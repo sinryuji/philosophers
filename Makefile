@@ -6,14 +6,14 @@
 #    By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 19:39:00 by hyeongki          #+#    #+#              #
-#    Updated: 2022/09/23 19:39:57 by hyeongki         ###   ########.fr        #
+#    Updated: 2022/09/24 17:08:50 by hyeongki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 SRCS_PATH = ./source/mandatory/
-SRCS_NAME =
+SRCS_NAME = main.c
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
 BONUS_PATH = ./source/bonus/
@@ -22,7 +22,7 @@ BONUS_SRCS = $(addprefix $(BONUS_PATH), $(BONUS_SRCS_NAME))
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 RM = rm -rf
 AR = ar rcs
-NAME = philof
+NAME = philo
 
 # Colors
 GREEN = \x1b[32m
@@ -37,6 +37,7 @@ all : $(NAME)
 
 $(NAME) :  $(OBJS)
 	@echo "$@: $(GREEN)$@ was created$(RESET)"
+	@$(CC) $(CFLAGS) $^ -o $@
 
 clean :
 	@$(RM) $(OBJS) $(BONUS_OBJS) 
