@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/07 20:47:14 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/08 20:49:17 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-
-# define SUCCESS 1
-# define FAILURE 0
 
 # define LEFT 0
 # define RIGHT 1
@@ -37,13 +34,24 @@ enum e_error_type
 	ERR_CREATE_THREAD
 };
 
+enum e_status
+{
+	TAKEN_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DEAD	
+};
+
 typedef struct s_philo
 {
-	pthread_t	thread;
-	int			number;
-	int			fork[2];
-	int			eat_cnt;
-	int			time_to_die;
+	pthread_t		thread;
+	int				number;
+	int				fork[2];
+	int				eat_cnt;
+	int				time_to_die;
+	int				routine_start_time;
+	struct s_table	*table;
 }	t_philo;
 
 typedef struct s_table
@@ -73,9 +81,12 @@ int		usage_check(int argc);
 int		argment_check(t_table *table);
 
 /* simulation */
-int	simulation(t_table *table);
+int		simulation(t_table *table);
 
 /* routine.c */
 void	*routine(void *arg);
+
+/* print.c */
+void	status_print(t_philo *philo, int status);
 
 #endif

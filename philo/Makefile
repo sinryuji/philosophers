@@ -6,14 +6,14 @@
 #    By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 19:39:00 by hyeongki          #+#    #+#              #
-#    Updated: 2022/11/07 18:22:36 by hyeongki         ###   ########.fr        #
+#    Updated: 2022/11/08 20:58:00 by hyeongki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 SRCS_PATH = ./source/
-SRCS_NAME = main.c error.c util.c init.c simulation.c
+SRCS_NAME = main.c error.c util.c init.c simulation.c routine.c printer.c
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
 RM = rm -rf
