@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/08 20:30:13 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/08 21:48:54 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	init_philo(t_table *table)
 	{
 		table->philos[i].number = i + 1;
 		table->philos[i].eat_cnt = 0;
-		table->philos[i].routine_start_time = table->time_to_die;
 		table->philos[i].fork[LEFT] = i % table->number_of_philo;
 		table->philos[i].fork[RIGHT] = (i + 1) % table->number_of_philo;
 		table->philos[i].table = table;

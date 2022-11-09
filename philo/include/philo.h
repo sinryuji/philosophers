@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/08 20:49:17 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/08 22:08:20 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define LEFT 0
 # define RIGHT 1
+
+# define TRUE 1
+# define FALSE 0
 
 enum e_error_type
 {
@@ -49,8 +52,7 @@ typedef struct s_philo
 	int				number;
 	int				fork[2];
 	int				eat_cnt;
-	int				time_to_die;
-	int				routine_start_time;
+	int				eat_start_time;
 	struct s_table	*table;
 }	t_philo;
 
@@ -82,11 +84,12 @@ int		argment_check(t_table *table);
 
 /* simulation */
 int		simulation(t_table *table);
+int		is_dead(t_table *table, t_philo *philo);
 
 /* routine.c */
 void	*routine(void *arg);
 
 /* print.c */
-void	status_print(t_philo *philo, int status);
+void	print_status(t_philo *philo, int status);
 
 #endif

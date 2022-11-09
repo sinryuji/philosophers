@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:48:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/08 20:57:45 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/08 22:25:50 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static char	*get_status(int status)
 	if (status == THINKING)
 		return ("is thinking");
 	if (status == DEAD)
-		return ("is dead");
+		return ("died");
 	return (NULL);
 }
 
-void	status_print(t_philo *philo, int status)
+void	print_status(t_philo *philo, int status)
 {
 	int	time;
 
