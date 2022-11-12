@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 20:32:23 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:21:58 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,14 @@ int	init_table(int argc, char **argv, t_table *table)
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
+	table->noe_flag = FALSE;
 	if (argc == 5)
 		table->number_of_eat = 0;
 	else
+	{
 		table->number_of_eat = ft_atoi(argv[5]);
+		table->noe_flag = TRUE;
+	}
 	ret = argment_check(table);
 	if (ret)
 		return (ret);

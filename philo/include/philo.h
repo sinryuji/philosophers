@@ -6,12 +6,12 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 21:00:47 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:41:10 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_H
-# define PHILOSOPHER_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdio.h>
 # include <pthread.h>
@@ -43,7 +43,6 @@ enum e_status
 	EATING,
 	SLEEPING,
 	THINKING,
-	ENOUGH,
 	DIED
 };
 
@@ -53,7 +52,7 @@ typedef struct s_philo
 	int				number;
 	int				fork[2];
 	int				eat_cnt;
-	uint64_t		eat_start_time;
+	int				eat_start_time;
 	int				status;
 	struct s_table	*table;
 	pthread_mutex_t	status_mutex;
@@ -62,11 +61,12 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int				number_of_philo;
-	uint64_t		time_to_die;
-	uint64_t		time_to_eat;
-	uint64_t		time_to_sleep;
-	uint64_t		start_time;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				start_time;
 	int				number_of_eat;
+	int				noe_flag;
 	int				finish;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printer;
@@ -80,6 +80,7 @@ int		init_table(int argc, char **argv, t_table *table);
 int		ft_strlen(char *str);
 int		ft_atoi(char *str);
 int		get_current_time(void);
+int		is_dead(t_table *table, t_philo *philo);
 
 /* error.c */
 int		put_error(int err);
@@ -88,8 +89,7 @@ int		argment_check(t_table *table);
 
 /* simulation */
 int		simulation(t_table *table);
-int		is_dead(t_table *table, t_philo *philo);
-int		philo_usleep(t_philo *philo, uint64_t time);
+int		philo_usleep(t_philo *philo, int time);
 
 /* routine.c */
 void	*routine(void *arg);

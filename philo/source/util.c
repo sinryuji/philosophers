@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:46:02 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 16:40:26 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:17:34 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ int	get_current_time(void)
 
 	gettimeofday(&current, NULL);
 	return (current.tv_sec * 1000 + current.tv_usec / 1000);
+}
+
+int	is_dead(t_table *table, t_philo *philo)
+{
+	if (get_current_time() - philo->eat_start_time > table->time_to_die)
+		return (TRUE);
+	return (FALSE);
 }

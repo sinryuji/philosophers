@@ -6,40 +6,58 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 21:43:21 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:06:04 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-//static int	monitoring_philos(t_table *table)
-//{
-//	int	i;
-//
-//	printf("in monitoring\n");
-//	while (table->finish == FALSE)
-//	{
-//		i = 0;
-//		while (i < table->number_of_philo)
-//		{
-//			if (get_current_time() - table->philos[i].eat_start_time \
-//				> table->time_to_die)
-//			{
-//				table->philos[i].status = DIED;
-//				table->finish = TRUE;
-//				break ;
-//			}
-//			i++;
-//		}
-//		usleep(1000);
-//	}
-//	return (EXIT_SUCCESS);
-//}
+static int	philos_full(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->number_of_philo)
+	{
+		if (table->philos[i].eat_cnt < table->number_of_eat)
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
+static int	monitoring_philos(t_table *table)
+{
+	int	i;
+
+	while (table->finish == FALSE)
+	{
+		i = 0;
+		while (i < table->number_of_philo)
+		{
+			if (is_dead(table, &table->philos[i]))
+			{
+				print_status(&table->philos[i], DIED);
+				table->philos[i].status = DIED;
+				table->finish = TRUE;
+				break ;
+			}
+			i++;
+		}
+		if (table->noe_flag == TRUE && philos_full(table) == TRUE)
+		{
+			table->finish = TRUE;
+			break ;
+		}
+		usleep(100);
+	}
+	usleep(100);
+	return (EXIT_SUCCESS);
+}
 
 static int	create_thread(t_table *table)
 {
 	int	i;
-	int	status;
 
 	i = 0;
 	while (i < table->number_of_philo)
@@ -48,23 +66,16 @@ static int	create_thread(t_table *table)
 		if (pthread_create(&table->philos[i].thread, NULL, &routine, \
 			(void *)&table->philos[i]))
 			return (ERR_CREATE_THREAD);
-//		pthread_detach(table->philos[i].thread);
-//		usleep(100);
+		pthread_detach(table->philos[i].thread);
+		usleep(50);
 		i++;
 	}
-	i = 0;
-	while (i < table->number_of_philo)
-	{
-		pthread_join(table->philos[i].thread, (void **)&status);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-//	return (monitoring_philos(table));
+	return (monitoring_philos(table));
 }
 
-int	philo_usleep(t_philo *philo, uint64_t time)
+int	philo_usleep(t_philo *philo, int time)
 {
-	uint64_t	start;
+	int	start;
 
 	start = get_current_time();
 	while (TRUE)
@@ -76,13 +87,6 @@ int	philo_usleep(t_philo *philo, uint64_t time)
 		usleep(50);
 	}
 	return (TRUE);
-}
-
-int	is_dead(t_table *table, t_philo *philo)
-{
-	if (get_current_time() - philo->eat_start_time > table->time_to_die)
-		return (TRUE);
-	return (FALSE);
 }
 
 int	simulation(t_table *table)
