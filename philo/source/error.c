@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:33:32 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 16:40:16 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:43:24 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	usage_check(int argc)
 
 int	argment_check(t_table *table)
 {
-	if (table->number_of_philo < 1 || table->number_of_philo >= 200)
+	if (table->number_of_philo < 1 || table->number_of_philo > 200)
 		return (ERR_PHILO_NUM);
 	else if (table->number_of_eat < 0)
 		return (ERR_EAT_NUM);

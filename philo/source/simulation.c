@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/12 17:06:04 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:42:06 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	create_thread(t_table *table)
 	while (i < table->number_of_philo)
 	{
 		table->philos[i].status = SIT;
+		table->philos[i].eat_start_time = get_current_time();
 		if (pthread_create(&table->philos[i].thread, NULL, &routine, \
 			(void *)&table->philos[i]))
 			return (ERR_CREATE_THREAD);
