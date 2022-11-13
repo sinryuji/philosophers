@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:42:42 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 16:05:11 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/13 18:23:25 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	main(int argc, char **argv)
 		ret = simulation(&table);
 	if (ret)
 		return (put_error(ret));
+	printf("finish well done\n");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/12 16:41:31 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:50:19 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,12 @@ void	*routine(void *arg)
 	{
 		if (eating(philo->table, philo) == FALSE)
 			return (NULL);
+		if (philo->table->finish == TRUE)
+			break ;
 		if (sleeping(philo->table, philo) == FALSE)
 			return (NULL);
+		if (philo->table->finish == TRUE)
+			break ;
 		if (thinking(philo) == FALSE)
 			return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:48:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/11 20:51:09 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:55:08 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static char	*get_status(int status)
 
 int	print_status(t_philo *philo, int status)
 {
-	int	time;
+	uint64_t	time;
 
 	if (died_check(philo) == FALSE)
 		return (FALSE);
 	pthread_mutex_lock(&philo->table->printer);
 	time = get_current_time() - philo->table->start_time;
-	printf("%d %d %s\n", time, philo->number, get_status(status));
+	printf("%llu %d %s\n", time, philo->number, get_status(status));
 	pthread_mutex_unlock(&philo->table->printer);
 	return (TRUE);
 }

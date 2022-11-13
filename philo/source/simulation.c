@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/12 17:42:06 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/13 20:30:54 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,38 @@ static int	monitoring_philos(t_table *table)
 		{
 			if (is_dead(table, &table->philos[i]))
 			{
+				printf("time : %llu\n", get_current_time() - table->philos[i].eat_start_time);
 				print_status(&table->philos[i], DIED);
 				table->philos[i].status = DIED;
 				table->finish = TRUE;
 				break ;
 			}
 			i++;
+			usleep(50);
 		}
 		if (table->noe_flag == TRUE && philos_full(table) == TRUE)
 		{
 			table->finish = TRUE;
 			break ;
 		}
-		usleep(100);
+		usleep(50);
 	}
-	usleep(100);
+	usleep(1000);
 	return (EXIT_SUCCESS);
 }
 
-static int	create_thread(t_table *table)
+static int	create_thread(t_table *table, int odd)
 {
 	int	i;
 
 	i = 0;
 	while (i < table->number_of_philo)
 	{
+		if (i % 2 == odd)
+		{
+			i++;
+			continue ;
+		}
 		table->philos[i].status = SIT;
 		table->philos[i].eat_start_time = get_current_time();
 		if (pthread_create(&table->philos[i].thread, NULL, &routine, \
@@ -71,12 +78,12 @@ static int	create_thread(t_table *table)
 		usleep(50);
 		i++;
 	}
-	return (monitoring_philos(table));
+	return (EXIT_SUCCESS);
 }
 
-int	philo_usleep(t_philo *philo, int time)
+int	philo_usleep(t_philo *philo, uint64_t time)
 {
-	int	start;
+	uint64_t	start;
 
 	start = get_current_time();
 	while (TRUE)
@@ -85,7 +92,7 @@ int	philo_usleep(t_philo *philo, int time)
 			break ;
 		if (philo->status == DIED || philo->table->finish == TRUE)
 			return (FALSE);
-		usleep(50);
+		usleep(100);
 	}
 	return (TRUE);
 }
@@ -94,8 +101,12 @@ int	simulation(t_table *table)
 {
 	int	ret;
 
-	ret = create_thread(table);
+	ret = create_thread(table, 1);
 	if (ret)
 		return (ret);
-	return (EXIT_SUCCESS);
+	usleep(100);
+	ret = create_thread(table, 0);
+	if (ret)
+		return (ret);
+	return (monitoring_philos(table));
 }

@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:33:32 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/12 17:43:24 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/13 16:36:43 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*get_err_msg(int errno)
 Usage: ./philo [number_of_philosophers] [time_to_die] [time_to_eat] \
 [time_to_sleep] [number_of_times_each_philosopher_must_eat]\n");
 	else if (errno == ERR_PHILO_NUM)
-		return ("Invalid argument philosophers number. Must be 1 ~ 199.");
+		return ("Invalid argument philosophers number. Must be 1 ~ 200.");
 	else if (errno == ERR_EAT_NUM)
 		return ("Invalid argument number of times must eat. Must be positive\n");
 	else if (errno == ERR_MALLOC)
