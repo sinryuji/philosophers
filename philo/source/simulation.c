@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/13 20:30:54 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/15 21:32:31 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	monitoring_philos(t_table *table)
 		}
 		usleep(50);
 	}
-	usleep(1000);
+	usleep(2000);
 	return (EXIT_SUCCESS);
 }
 
