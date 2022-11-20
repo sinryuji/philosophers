@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:46:02 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/13 18:16:59 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/20 18:32:27 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ uint64_t	get_current_time(void)
 
 int	is_dead(t_table *table, t_philo *philo)
 {
+	pthread_mutex_lock(&philo->status_mutex);
 	if (get_current_time() - philo->eat_start_time > table->time_to_die)
 		return (TRUE);
 	return (FALSE);
