@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:46:02 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 18:32:27 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:06:23 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_atoi(char *str)
 	return (result);
 }
 
-uint64_t	get_current_time(void)
+long long	get_current_time(void)
 {
 	struct timeval	current;
 

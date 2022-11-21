@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 16:02:04 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:07:22 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	init_table(int argc, char **argv, t_table *table)
 	int				ret;
 
 	table->number_of_philo = ft_atoi(argv[1]);
-	table->time_to_die = (uint64_t)ft_atoi(argv[2]);
-	table->time_to_eat = (uint64_t)ft_atoi(argv[3]);
-	table->time_to_sleep = (uint64_t)ft_atoi(argv[4]);
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
 	table->noe_flag = FALSE;
 	table->finish = FALSE;
 	if (argc == 5)

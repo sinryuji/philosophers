@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 18:37:58 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:26:56 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ static int	create_thread(t_table *table)
 	return (EXIT_SUCCESS);
 }
 
-int	philo_usleep(t_philo *philo, uint64_t time)
+int	philo_usleep(t_philo *philo, int time)
 {
-	uint64_t	start;
+	long long start;
 
 	start = get_current_time();
 	while (TRUE)
