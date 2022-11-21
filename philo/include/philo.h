@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 22:27:13 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:50:18 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ enum e_error_type
 	ERR_EAT_NUM,
 	ERR_MALLOC,
 	ERR_INIT_MUTEX,
-	ERR_CREATE_THREAD
+	ERR_CREATE_THREAD,
+	ERR_WRONG_TIME
 };
 
 enum e_status
@@ -74,7 +75,7 @@ typedef struct s_table
 }	t_table;
 
 /* init.c */
-int		init_table(int argc, char **argv, t_table *table);
+int			init_table(int argc, char **argv, t_table *table);
 
 /* util.c */
 int			ft_strlen(char *str);
@@ -83,18 +84,18 @@ long long	get_current_time(void);
 int			is_dead(t_table *table, t_philo *philo);
 
 /* error.c */
-int		put_error(int err);
-int		usage_check(int argc);
-int		argment_check(t_table *table);
+int			put_error(int err);
+int			usage_check(int argc);
+int			argment_check(t_table *table);
 
 /* simulation */
-int		simulation(t_table *table);
-int		philo_usleep(t_philo *philo, int time);
+int			simulation(t_table *table);
+int			philo_usleep(t_philo *philo, int time);
 
 /* routine.c */
-void	*routine(void *arg);
+void		*routine(void *arg);
 
 /* print.c */
-int		print_status(t_philo *philo, int status);
+int			print_status(t_philo *philo, int status);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 22:26:56 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:55:20 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,26 @@ static int	philos_full(t_table *table)
 
 static void	*monitoring_philos(void *arg)
 {
-	int	i;
-	t_table *table;
+	int		i;
+	t_table	*table;
 
 	table = arg;
 	while (table->finish == FALSE)
 	{
 		i = 0;
-		while (i < table->number_of_philo)
+		while (++i < table->number_of_philo)
 		{
 			if (is_dead(table, &table->philos[i]))
 			{
-				printf("time : %llu\n", get_current_time() - table->philos[i].eat_start_time);
 				print_status(&table->philos[i], DIED);
 				table->philos[i].status = DIED;
 				table->finish = TRUE;
 				break ;
 			}
 			i++;
-			usleep(50);
 		}
 		if (table->noe_flag == TRUE && philos_full(table) == TRUE)
-		{
 			table->finish = TRUE;
-			break ;
-		}
 		usleep(50);
 	}
 	usleep(1000);
@@ -74,7 +69,6 @@ static int	create_thread(t_table *table)
 		if (pthread_create(&table->philos[i].thread, NULL, &routine, \
 			(void *)&table->philos[i]))
 			return (ERR_CREATE_THREAD);
-		usleep(50);
 		i++;
 	}
 	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
@@ -85,9 +79,10 @@ static int	create_thread(t_table *table)
 
 int	philo_usleep(t_philo *philo, int time)
 {
-	long long start;
+	long long	start;
 
 	start = get_current_time();
+	usleep(time * 500);
 	while (TRUE)
 	{
 		if (get_current_time() - start >= time)
