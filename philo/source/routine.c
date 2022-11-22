@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 18:28:57 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/22 21:27:36 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->number % 2 == 0)
+		usleep(10000);
 	while (philo->table->finish == FALSE)
 	{
 		if (eating(philo->table, philo) == FALSE)
