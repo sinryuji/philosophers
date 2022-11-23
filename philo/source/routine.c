@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/22 21:27:36 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:08:15 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static int	eating(t_table *table, t_philo *philo)
 	int	ret;
 
 	pick_fork(table, philo);
-	print_status(philo, EATING);
-	philo->eat_start_time = get_current_time();
-	ret = philo_usleep(philo, table->time_to_eat);
 	philo->eat_cnt++;
+	print_status(philo, EATING);
+	philo->live_time = get_current_time();
+	ret = philo_usleep(philo, table->time_to_eat);
 	pthread_mutex_unlock(&table->forks[philo->fork[LEFT]]);
 	pthread_mutex_unlock(&table->forks[philo->fork[RIGHT]]);
 	return (ret);
@@ -50,8 +50,6 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->number % 2 == 0)
-		usleep(10000);
 	while (philo->table->finish == FALSE)
 	{
 		if (eating(philo->table, philo) == FALSE)

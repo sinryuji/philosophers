@@ -6,13 +6,11 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/22 21:24:57 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:07:33 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
-#include <stdlib.h>
 
 static int	philos_full(t_table *table)
 {
@@ -37,43 +35,34 @@ static void	*monitoring_philos(void *arg)
 	while (table->finish == FALSE)
 	{
 		i = 0;
-		while (++i < table->number_of_philo)
+		while (i < table->number_of_philo)
 		{
 			if (is_dead(table, &table->philos[i]))
 			{
 				print_status(&table->philos[i], DIED);
 				table->philos[i].status = DIED;
 				table->finish = TRUE;
-				break ;
+				return (NULL);
 			}
 			i++;
 		}
 		if (table->noe_flag == TRUE && philos_full(table) == TRUE)
 			table->finish = TRUE;
-		usleep(50);
+		usleep(100);
 	}
-	usleep(1000);
+	usleep(100);
 	return (NULL);
 }
 
-static int	create_thread(t_table *table)
+static int	create_thread(t_table *table, int i)
 {
-	int			i;
-	pthread_t	monitor;
-
-	i = 0;
 	while (i < table->number_of_philo)
 	{
-		table->philos[i].status = SIT;
-		table->philos[i].eat_start_time = get_current_time();
 		if (pthread_create(&table->philos[i].thread, NULL, &routine, \
 			(void *)&table->philos[i]))
 			return (ERR_CREATE_THREAD);
-		i++;
+		i += 2;
 	}
-	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
-		return (ERR_CREATE_THREAD);
-	pthread_detach(monitor);
 	return (EXIT_SUCCESS);
 }
 
@@ -98,10 +87,17 @@ int	simulation(t_table *table)
 {
 	int			ret;
 	int			i;
+	pthread_t	monitor;
 
-	ret = create_thread(table);
+	ret = create_thread(table, 0);
 	if (ret)
 		return (ret);
+	ret = create_thread(table, 1);
+	if (ret)
+		return (ret);
+	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
+		return (ERR_CREATE_THREAD);
+	pthread_detach(monitor);
 	i = 0;
 	while (i < table->number_of_philo)
 	{

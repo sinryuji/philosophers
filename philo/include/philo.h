@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/21 18:50:18 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:03:39 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ enum e_error_type
 
 enum e_status
 {
-	SIT,
 	TAKEN_FORK,
 	EATING,
 	SLEEPING,
@@ -53,7 +52,7 @@ typedef struct s_philo
 	int				number;
 	int				fork[2];
 	int				eat_cnt;
-	long long		eat_start_time;
+	long long		live_time;
 	int				status;
 	struct s_table	*table;
 	pthread_mutex_t	status_mutex;
