@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 18:03:46 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:22:15 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	init_philo(t_table *table)
 		table->philos[i].fork[RIGHT] = (i + 1) % table->number_of_philo;
 		table->philos[i].table = table;
 		table->philos[i].live_time = get_current_time();
-		pthread_mutex_init(&table->philos[i].status_mutex, NULL);
 		i++;
 	}
 	return (EXIT_SUCCESS);

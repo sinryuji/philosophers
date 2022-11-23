@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 18:03:39 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:22:00 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_philo
 	long long		live_time;
 	int				status;
 	struct s_table	*table;
-	pthread_mutex_t	status_mutex;
 }	t_philo;
 
 typedef struct s_table
