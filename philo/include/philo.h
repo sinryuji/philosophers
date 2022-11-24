@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 18:22:00 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:49:03 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <string.h>
 
 # define LEFT 0
 # define RIGHT 1

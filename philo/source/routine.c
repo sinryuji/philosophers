@@ -6,11 +6,12 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 18:08:15 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:48:56 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
 
 static void	pick_fork(t_table *table, t_philo *philo)
 {
@@ -25,8 +26,8 @@ static int	eating(t_table *table, t_philo *philo)
 
 	pick_fork(table, philo);
 	philo->eat_cnt++;
-	print_status(philo, EATING);
 	philo->live_time = get_current_time();
+	print_status(philo, EATING);
 	ret = philo_usleep(philo, table->time_to_eat);
 	pthread_mutex_unlock(&table->forks[philo->fork[LEFT]]);
 	pthread_mutex_unlock(&table->forks[philo->fork[RIGHT]]);

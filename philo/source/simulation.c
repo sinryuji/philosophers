@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 18:23:15 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:49:39 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,23 +86,17 @@ int	philo_usleep(t_philo *philo, int time)
 int	simulation(t_table *table)
 {
 	int			ret;
-	int			i;
 	pthread_t	monitor;
 
 	ret = create_thread(table, 0);
 	if (ret)
 		return (ret);
+	usleep(100);
 	ret = create_thread(table, 1);
 	if (ret)
 		return (ret);
 	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
 		return (ERR_CREATE_THREAD);
 	pthread_detach(monitor);
-	i = 0;
-	while (i < table->number_of_philo)
-	{
-		pthread_join(table->philos[i].thread, NULL);
-		i++;
-	}
 	return (EXIT_SUCCESS);
 }

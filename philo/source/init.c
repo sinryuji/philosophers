@@ -6,11 +6,28 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 18:22:15 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:50:44 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+static void	set_args(t_table *table, int argc, char **argv)
+{
+	table->number_of_philo = ft_atoi(argv[1]);
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
+	table->noe_flag = FALSE;
+	table->finish = FALSE;
+	if (argc == 5)
+		table->number_of_eat = 0;
+	else
+	{
+		table->number_of_eat = ft_atoi(argv[5]);
+		table->noe_flag = TRUE;
+	}
+}
 
 static int	init_forks(t_table *table)
 {
@@ -37,6 +54,7 @@ static int	init_philo(t_table *table)
 	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->number_of_philo);
 	if (table->philos == NULL)
 		return (ERR_MALLOC);
+	memset(table->philos, 0, sizeof(t_philo) * table->number_of_philo);
 	i = 0;
 	while (i < table->number_of_philo)
 	{
@@ -55,19 +73,8 @@ int	init_table(int argc, char **argv, t_table *table)
 {
 	int				ret;
 
-	table->number_of_philo = ft_atoi(argv[1]);
-	table->time_to_die = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
-	table->noe_flag = FALSE;
-	table->finish = FALSE;
-	if (argc == 5)
-		table->number_of_eat = 0;
-	else
-	{
-		table->number_of_eat = ft_atoi(argv[5]);
-		table->noe_flag = TRUE;
-	}
+	memset(table, 0, sizeof(t_table));
+	set_args(table, argc, argv);
 	ret = argment_check(table);
 	if (ret)
 		return (ret);
@@ -76,6 +83,9 @@ int	init_table(int argc, char **argv, t_table *table)
 	ret = init_forks(table);
 	if (ret)
 		return (ret);
+	ret = init_philo(table);
+	if (ret)
+		return (ret);
 	table->start_time = get_current_time();
-	return (init_philo(table));
+	return (EXIT_SUCCESS);
 }

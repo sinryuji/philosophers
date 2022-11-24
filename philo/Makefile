@@ -6,12 +6,12 @@
 #    By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 19:39:00 by hyeongki          #+#    #+#              #
-#    Updated: 2022/11/08 22:09:23 by hyeongki         ###   ########.fr        #
+#    Updated: 2022/11/24 14:46:25 by hyeongki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 SRCS_PATH = ./source/
 SRCS_NAME = main.c error.c util.c init.c simulation.c routine.c print.c
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
