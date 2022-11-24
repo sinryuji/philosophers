@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:42:42 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/20 18:37:22 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:42:12 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int argc, char **argv)
 	ret = usage_check(argc);
 	if (!ret)
 		ret = init_table(argc, argv, &table);
+	if (table.noe_flag == TRUE && table.number_of_eat == 0)
+		return (EXIT_SUCCESS);
 	if (!ret)
 		ret = simulation(&table);
 	if (ret)
