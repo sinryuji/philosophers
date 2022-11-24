@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/24 15:15:01 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:17:14 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	philo_usleep(t_philo *philo, int time)
 			break ;
 		if (philo->status == DIED || philo->table->finish == TRUE)
 			return (FALSE);
-//		usleep(100);
 	}
 	return (TRUE);
 }
@@ -91,7 +90,6 @@ int	simulation(t_table *table)
 	ret = create_thread(table, 0);
 	if (ret)
 		return (ret);
-//	usleep(100);
 	ret = create_thread(table, 1);
 	if (ret)
 		return (ret);
