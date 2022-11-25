@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 15:50:42 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:01:45 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_table
 	int				number_of_eat;
 	int				noe_flag;
 	int				finish;
-	pthread_mutex_t table_mutex;
+	pthread_mutex_t	table_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printer;
 	struct s_philo	*philos;
@@ -82,6 +82,7 @@ int			ft_strlen(char *str);
 int			ft_atoi(char *str);
 long long	get_current_time(void);
 int			is_dead(t_table *table, t_philo *philo);
+void		set_true(t_table *table);
 
 /* error.c */
 int			put_error(int err);

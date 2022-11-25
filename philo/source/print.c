@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:48:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 15:32:30 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:59:57 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_status(int status)
 	return (NULL);
 }
 
-void print_status(t_philo *philo, int status)
+void	print_status(t_philo *philo, int status)
 {
 	long long	time;
 
