@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/24 14:48:56 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:36:02 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static int	eating(t_table *table, t_philo *philo)
 	int	ret;
 
 	pick_fork(table, philo);
+	pthread_mutex_lock(philo->status_mutex);
 	philo->eat_cnt++;
 	philo->live_time = get_current_time();
+	pthread_mutex_unlock(philo->status_mutex);
 	print_status(philo, EATING);
 	ret = philo_usleep(philo, table->time_to_eat);
 	pthread_mutex_unlock(&table->forks[philo->fork[LEFT]]);
@@ -36,14 +38,13 @@ static int	eating(t_table *table, t_philo *philo)
 
 static int	sleeping(t_table *table, t_philo *philo)
 {
-	if (print_status(philo, SLEEPING) == FALSE)
-		return (FALSE);
+	print_status(philo, SLEEPING);
 	return (philo_usleep(philo, table->time_to_sleep));
 }
 
-static int	thinking(t_philo *philo)
+static void	thinking(t_philo *philo)
 {
-	return (print_status(philo, THINKING));
+	print_status(philo, THINKING);
 }
 
 void	*routine(void *arg)
@@ -57,8 +58,7 @@ void	*routine(void *arg)
 			return (NULL);
 		if (sleeping(philo->table, philo) == FALSE)
 			return (NULL);
-		if (thinking(philo) == FALSE)
-			return (NULL);
+		thinking(philo);
 	}
 	return (NULL);
 }

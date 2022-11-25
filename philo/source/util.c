@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:46:02 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/23 17:38:01 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:37:13 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ long long	get_current_time(void)
 
 int	is_dead(t_table *table, t_philo *philo)
 {
-	if (get_current_time() - philo->live_time > table->time_to_die)
+	int	ret;
+	
+	pthread_mutex_lock(philo->status_mutex);
+	ret = get_current_time() - philo->live_time > table->time_to_die;
+	pthread_mutex_unlock(philo->status_mutex);
+	if (ret)
 		return (TRUE);
 	return (FALSE);
 }

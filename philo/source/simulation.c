@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 14:17:59 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:29:00 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	*monitoring_philos(void *arg)
 			if (is_dead(table, &table->philos[i]))
 			{
 				print_status(&table->philos[i], DIED);
-				table->philos[i].status = DIED;
 				table->finish = TRUE;
 				return (NULL);
 			}
@@ -76,7 +75,7 @@ int	philo_usleep(t_philo *philo, int time)
 	{
 		if (get_current_time() - start >= time)
 			break ;
-		if (philo->status == DIED || philo->table->finish == TRUE)
+		if (philo->table->finish == TRUE)
 			return (FALSE);
 	}
 	return (TRUE);
