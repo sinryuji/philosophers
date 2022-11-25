@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:42:42 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/24 14:30:05 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:21:41 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,18 @@ static void	destroy_table(t_table *table)
 	int	i;
 
 	i = 0;
-	while (i < table->number_of_philo)
+	if (table->forks)
 	{
-		pthread_join(table->philos[i].thread, NULL);
-		i++;
-	}
-	i = 0;
-	while (i < table->number_of_philo)
-	{
-		pthread_mutex_destroy(&(table->forks[i]));
-		i++;
+		while (i < table->number_of_philo)
+		{
+			pthread_mutex_destroy(&(table->forks[i]));
+			i++;
+		}
+		free(table->forks);
 	}
 	pthread_mutex_destroy(&(table->printer));
-	free(table->forks);
-	free(table->philos);
+	if (table->philos)
+		free(table->philos);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/24 18:21:46 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:17:59 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	simulation(t_table *table)
 {
 	int			ret;
 	pthread_t	monitor;
+	int			i;
 
 	ret = create_thread(table, 0);
 	if (ret)
@@ -96,5 +97,11 @@ int	simulation(t_table *table)
 	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
 		return (ERR_CREATE_THREAD);
 	pthread_detach(monitor);
+	i = 0;
+	while (i < table->number_of_philo)
+	{
+		pthread_join(table->philos[i].thread, NULL);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
