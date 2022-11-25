@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 15:29:00 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:56:41 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,19 @@ static void	*monitoring_philos(void *arg)
 			if (is_dead(table, &table->philos[i]))
 			{
 				print_status(&table->philos[i], DIED);
+				pthread_mutex_lock(&table->table_mutex);
 				table->finish = TRUE;
+				pthread_mutex_unlock(&table->table_mutex);
 				return (NULL);
 			}
 			i++;
 		}
 		if (table->noe_flag == TRUE && philos_full(table) == TRUE)
+		{
+			pthread_mutex_lock(&table->table_mutex);
 			table->finish = TRUE;
+			pthread_mutex_unlock(&table->table_mutex);
+		}
 		usleep(100);
 	}
 	usleep(100);
@@ -68,14 +74,18 @@ static int	create_thread(t_table *table, int i)
 int	philo_usleep(t_philo *philo, int time)
 {
 	long long	start;
+	int			ret;
 
 	start = get_current_time();
-	usleep(time * 800);
+	usleep(time * 500);
 	while (TRUE)
 	{
 		if (get_current_time() - start >= time)
 			break ;
-		if (philo->table->finish == TRUE)
+		pthread_mutex_lock(&philo->table->table_mutex);
+		ret = philo->table->finish;
+		pthread_mutex_unlock(&philo->table->table_mutex);
+		if (ret == TRUE)
 			return (FALSE);
 	}
 	return (TRUE);

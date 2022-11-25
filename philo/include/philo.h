@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 15:31:23 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:50:42 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_philo
 	int				fork[2];
 	int				eat_cnt;
 	long long		live_time;
-	pthread_mutex_t	*status_mutex;
+	pthread_mutex_t	status_mutex;
 	struct s_table	*table;
 }	t_philo;
 
@@ -68,6 +68,7 @@ typedef struct s_table
 	int				number_of_eat;
 	int				noe_flag;
 	int				finish;
+	pthread_mutex_t table_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printer;
 	struct s_philo	*philos;

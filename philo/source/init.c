@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 15:35:17 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:51:47 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ static int	init_philo(t_table *table)
 		table->philos[i].fork[LEFT] = i % table->number_of_philo;
 		table->philos[i].fork[RIGHT] = (i + 1) % table->number_of_philo;
 		table->philos[i].table = table;
-		table->philos[i].status_mutex = \
-		(pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(table->philos[i].status_mutex, NULL);
+		pthread_mutex_init(&table->philos[i].status_mutex, NULL);
 		table->philos[i].live_time = get_current_time();
 		i++;
 	}
@@ -82,6 +80,8 @@ int	init_table(int argc, char **argv, t_table *table)
 	if (ret)
 		return (ret);
 	if (pthread_mutex_init(&table->printer, NULL) == -1)
+		return (ERR_INIT_MUTEX);
+	if (pthread_mutex_init(&table->table_mutex, NULL) == -1)
 		return (ERR_INIT_MUTEX);
 	ret = init_forks(table);
 	if (ret)
