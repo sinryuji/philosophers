@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 16:02:15 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:03:50 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	simulation(t_table *table)
 	ret = create_thread(table, 0);
 	if (ret)
 		return (ret);
+	usleep(100);
 	ret = create_thread(table, 1);
 	if (ret)
 		return (ret);

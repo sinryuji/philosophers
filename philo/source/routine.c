@@ -6,25 +6,19 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 15:57:53 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:06:36 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
-
-static void	pick_fork(t_table *table, t_philo *philo)
-{
-	pthread_mutex_lock(&table->forks[philo->fork[LEFT]]);
-	pthread_mutex_lock(&table->forks[philo->fork[RIGHT]]);
-	print_status(philo, TAKEN_FORK);
-}
 
 static int	eating(t_table *table, t_philo *philo)
 {
 	int	ret;
 
-	pick_fork(table, philo);
+	pthread_mutex_lock(&table->forks[philo->fork[LEFT]]);
+	pthread_mutex_lock(&table->forks[philo->fork[RIGHT]]);
+	print_status(philo, TAKEN_FORK);
 	pthread_mutex_lock(&philo->status_mutex);
 	philo->eat_cnt++;
 	philo->live_time = get_current_time();
@@ -44,8 +38,8 @@ static int	sleeping(t_table *table, t_philo *philo)
 
 static void	thinking(t_philo *philo)
 {
-	print_status(philo, THINKING);
 	usleep(100);
+	print_status(philo, THINKING);
 }
 
 void	*routine(void *arg)
