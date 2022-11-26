@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 16:01:45 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/26 23:06:50 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ int			philo_usleep(t_philo *philo, int time);
 void		*routine(void *arg);
 
 /* print.c */
-void		print_status(t_philo *philo, int status);
+int			print_status(t_philo *philo, int status);
 
 #endif

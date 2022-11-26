@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/26 17:15:22 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/26 23:18:24 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static int	philos_full(t_table *table)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
 	while (i < table->number_of_philo)
 	{
-		if (table->philos[i].eat_cnt < table->number_of_eat)
+		pthread_mutex_lock(&table->philos[i].status_mutex);
+		ret = table->philos[i].eat_cnt < table->number_of_eat;
+		pthread_mutex_unlock(&table->philos[i].status_mutex);
+		if (ret == TRUE)
 			return (FALSE);
 		i++;
 	}
@@ -71,7 +75,7 @@ int	philo_usleep(t_philo *philo, int time)
 	int			ret;
 
 	start = get_current_time();
-	usleep(time * 800);
+	usleep(time * 500);
 	while (TRUE)
 	{
 		if (get_current_time() - start >= time)
@@ -100,7 +104,7 @@ int	simulation(t_table *table)
 		return (ret);
 	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
 		return (ERR_CREATE_THREAD);
-	pthread_detach(monitor);
+	pthread_join(monitor, NULL);
 	i = 0;
 	while (i < table->number_of_philo)
 	{
