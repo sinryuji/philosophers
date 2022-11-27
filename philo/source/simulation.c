@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/26 23:18:24 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/27 22:17:18 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	philo_usleep(t_philo *philo, int time)
 	int			ret;
 
 	start = get_current_time();
-	usleep(time * 500);
+	usleep(time * 800);
 	while (TRUE)
 	{
 		if (get_current_time() - start >= time)

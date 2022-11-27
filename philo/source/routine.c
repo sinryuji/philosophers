@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/27 05:25:26 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/27 22:17:59 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	eating(t_table *table, t_philo *philo)
 	pthread_mutex_lock(&table->forks[philo->fork[LEFT]]);
 	if (philo->fork[LEFT] == philo->fork[RIGHT])
 	{
-		// TODO: 구현 꼭 하기 >_= (으아아~ 기모찌 와루이~~)
+		if (philo_usleep(philo, table->time_to_die + 10) == FALSE)
+			return (FALSE);
 	}
 	pthread_mutex_lock(&table->forks[philo->fork[RIGHT]]);
 	if (print_status(philo, TAKEN_FORK) == FALSE)
@@ -48,7 +49,7 @@ static int	thinking(t_philo *philo)
 	return (print_status(philo, THINKING));
 }
 
-static int finish_check(t_philo *philo)
+static int	finish_check(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->table_mutex);
 	if (philo->table->finish == TRUE)

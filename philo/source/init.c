@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:25 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/26 16:58:23 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:18:48 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static int	init_forks(t_table *table)
 
 	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
 	table->number_of_philo);
+	table->fork_flag = (int *)malloc(sizeof(int) * table->number_of_philo);
 	memset(table->forks, 0, sizeof(pthread_mutex_t) * table->number_of_philo);
+	memset(table->fork_flag, 0, sizeof(int) * table->number_of_philo);
 	if (table->forks == NULL)
 		return (ERR_MALLOC);
 	i = 0;

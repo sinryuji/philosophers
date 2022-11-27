@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:43:19 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/26 23:06:50 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/27 22:15:58 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_table
 	int				finish;
 	pthread_mutex_t	table_mutex;
 	pthread_mutex_t	*forks;
+	int				*fork_flag;
 	pthread_mutex_t	printer;
 	struct s_philo	*philos;
 }	t_table;
