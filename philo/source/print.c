@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:48:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/27 05:37:31 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/28 07:55:47 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,22 @@ int	print_status(t_philo *philo, int status)
 {
 	long long	time;
 
-	pthread_mutex_lock(&philo->table->table_mutex);
-	if (philo->table->finish == TRUE)
+	if (status == DIED)
 	{
-		pthread_mutex_unlock(&philo->table->table_mutex);
-		return (FALSE);
+		set_true(philo->table);
+		pthread_mutex_lock(&philo->table->printer);
+		time = get_current_time() - philo->table->start_time;
+		printf("%llu %d %s\n", time, philo->number, get_status(status));
+		pthread_mutex_unlock(&philo->table->printer);
+	}
+	pthread_mutex_lock(&philo->table->table_mutex);
+	if (philo->table->finish == FALSE)
+	{
+		pthread_mutex_lock(&philo->table->printer);
+		time = get_current_time() - philo->table->start_time;
+		printf("%llu %d %s\n", time, philo->number, get_status(status));
+		pthread_mutex_unlock(&philo->table->printer);
 	}
 	pthread_mutex_unlock(&philo->table->table_mutex);
-	pthread_mutex_lock(&philo->table->printer);
-	time = get_current_time() - philo->table->start_time;
-	printf("%llu %d %s\n", time, philo->number, get_status(status));
-	pthread_mutex_unlock(&philo->table->printer);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/27 22:17:18 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/28 07:56:06 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	*monitoring_philos(void *arg)
 			if (is_dead(table, &table->philos[i]))
 			{
 				print_status(&table->philos[i], DIED);
-				set_true(table);
 				return (NULL);
 			}
 			i++;

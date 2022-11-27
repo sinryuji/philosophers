@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:34:37 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/27 22:17:59 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/28 07:28:05 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	sleeping(t_table *table, t_philo *philo)
 
 static int	thinking(t_philo *philo)
 {
-	usleep(100);
 	return (print_status(philo, THINKING));
 }
 
@@ -72,7 +71,11 @@ void	*routine(void *arg)
 			return (NULL);
 		if (eating(philo->table, philo) == FALSE)
 			return (NULL);
+		if (finish_check(philo) == TRUE)
+			return (NULL);
 		if (sleeping(philo->table, philo) == FALSE)
+			return (NULL);
+		if (finish_check(philo) == TRUE)
 			return (NULL);
 		if (thinking(philo) == FALSE)
 			return (NULL);
