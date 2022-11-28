@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:18:43 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/28 07:56:06 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:13:32 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	*monitoring_philos(void *arg)
 			if (is_dead(table, &table->philos[i]))
 			{
 				print_status(&table->philos[i], DIED);
-				return (NULL);
+				break ;
 			}
 			i++;
 		}
@@ -53,7 +53,7 @@ static void	*monitoring_philos(void *arg)
 		usleep(100);
 	}
 	usleep(100);
-	return (NULL);
+	return (EXIT_SUCCESS);
 }
 
 static int	create_thread(t_table *table, int i)
@@ -84,6 +84,7 @@ int	philo_usleep(t_philo *philo, int time)
 		pthread_mutex_unlock(&philo->table->table_mutex);
 		if (ret == TRUE)
 			return (FALSE);
+		usleep(100);
 	}
 	return (TRUE);
 }
@@ -101,9 +102,9 @@ int	simulation(t_table *table)
 	ret = create_thread(table, 1);
 	if (ret)
 		return (ret);
-	if (pthread_create(&monitor, NULL, monitoring_philos, (void *)table))
+	if (pthread_create(&monitor, NULL, &monitoring_philos, (void *)table))
 		return (ERR_CREATE_THREAD);
-	pthread_join(monitor, NULL);
+	pthread_detach(monitor);
 	i = 0;
 	while (i < table->number_of_philo)
 	{

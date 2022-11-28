@@ -6,7 +6,7 @@
 /*   By: hyeongki <hyeongki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:42:42 by hyeongki          #+#    #+#             */
-/*   Updated: 2022/11/25 14:21:41 by hyeongki         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:17:20 by hyeongki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ static void	destroy_table(t_table *table)
 		while (i < table->number_of_philo)
 		{
 			pthread_mutex_destroy(&(table->forks[i]));
+			pthread_mutex_destroy(&(table->philos[i].status_mutex));
 			i++;
 		}
 		free(table->forks);
 	}
 	pthread_mutex_destroy(&(table->printer));
+	pthread_mutex_destroy(&(table->table_mutex));
 	if (table->philos)
 		free(table->philos);
 }
